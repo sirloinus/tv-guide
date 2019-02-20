@@ -9,11 +9,11 @@ class ChannelRow extends Component {
     }
 
     render() {
-        const { programmes, channel } = this.props
+        const { channel } = this.props
         return (
             <div className='container'>
                 <Channel channel={channel}/>
-                <ProgrammesContainer programmes={programmes}/>
+                <ProgrammesContainer programmes={["A", "B"]}/>
             </div>
         )
     }
