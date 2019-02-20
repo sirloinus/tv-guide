@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const Programme = (props) => {
+const Programme = ({programme}) => {
 
     return (
-        <div></div>
+        <div className='programme'>
+            {programme}
+        </div>
     )
 
 }
