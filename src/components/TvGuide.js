@@ -9,11 +9,15 @@ class TvGuide extends Component {
     }
 
     componentDidMount() {
-
+        const fileNames = ["1", "2", "3", "4", "5", "6", "channels"]
+        fileNames.forEach( file => this.getData(file))
     }
 
-    getData = async () => {
-
+    getData = async (fileName) => {
+        const response = await fetch(`http://localhost:3000/data/${fileName}.json`)
+        const data = await response.json()
+        const key = fileName
+        this.setState({[key]: data})
     }
 
     render() {
