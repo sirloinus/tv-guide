@@ -8,8 +8,8 @@ class TimeNav extends Component {
 
     render() {
         return (
-            <div></div>
-        );
+            <div>TIME NAV</div>
+        )
     }
 }
 

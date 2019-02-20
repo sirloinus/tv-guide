@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import TimeNav from './TimeNav';
+import ChannelRow from './ChannelRow';
 
 class TvGuide extends Component {
 
@@ -6,10 +8,23 @@ class TvGuide extends Component {
 
     }
 
+    componentDidMount() {
+
+    }
+
+    getData = async () => {
+
+    }
+
     render() {
+        const programmes = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
+        const channel = 'BBC'
         return (
-            <div></div>
-        );
+            <div>
+                <TimeNav />
+                <ChannelRow channel={channel} programmes={programmes}/>
+            </div>
+        )
     }
 }
 

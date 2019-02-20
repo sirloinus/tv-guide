@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const Channel = (props) => {
+const Channel = ({channel}) => {
 
     return (
-        <div></div>
+        <div class="channel">
+            <div class="logo_wrapper">
+                <img src="" alt="" class="logo"/>
+            </div>
+        </div>
     )
 
 }
