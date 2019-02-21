@@ -13,7 +13,7 @@ class ChannelRow extends Component {
         return (
             <div className='container'>
                 <Channel channel={channel}/>
-                <ProgrammesContainer programmes={["A", "B"]}/>
+                <ProgrammesContainer programmes={["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]}/>
             </div>
         )
     }
