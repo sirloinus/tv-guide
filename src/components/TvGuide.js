@@ -10,9 +10,8 @@ class TvGuide extends Component {
     }
 
     async componentDidMount() {
-        const fileNames = ["1", "2", "3", "4", "5", "6", "channels"]
+        const fileNames = ["channels", "1", "2", "3", "4", "5", "6"]
         await fileNames.forEach( file => this.getData(file))
-        // await this.sortData()
     }
 
     getData = async (fileName) => {
@@ -23,55 +22,89 @@ class TvGuide extends Component {
         this.setState({
             [fileName]: extractedData,
             loadedData: increment
+        }, () => {
+            if(fileName === 'channels') {
+                this.state.channels.forEach(chan => {
+                    this.setState({
+                        ...this.state.channelProgrammes,
+                        channelProgrammes: {
+                            ...this.state.channelProgrammes[chan.groupID],
+                            [chan.groupID]: {
+                                channelInfo: chan,
+                                programmes: []
+                            }
+                        }
+                })
+                })
+            }
+            // this.sortData(fileName)
+        })
+    }
+
+    sortData = (fileNames) => {
+        fileNames.forEach(key => {
+            const data = this.state[key]
+            console.log(data)
+            if (key !== 'channels') {
+                // console.log(`DAY:${key}`, data)
+                data.forEach(programme => {
+                    console.log('Prog', programme)
+                    if (this.state.channelProgrammes.hasOwnProperty(programme.channelID)) {
+                        console.log("ehehehe")
+                        const programmes = [...this.state.channelProgrammes.channelID]
+                        programmes.push(programme)
+                        this.setState({
+                            channelProgrammes: {
+                                ...this.state.channelProgrammes,
+                                [programme.channelID]: programmes
+                            }
+                        }, () => {
+                            console.log("HERE!!!")
+                        })
+                    } else {
+                        const starterArray = []
+                        starterArray.push(programme)
+                        console.log(programme.channelID, "day", key)
+                        console.log(starterArray)
+                        console.log('ho!!!!!')
+                        this.setState({ channelProgrammes: { test: starterArray } })
+                        // this.setState({ channelProgrammes: {
+                        //     [programme.channelID]: starterArray
+                        // }})
+                    }
+                })
+            }
         })
     }
 
     // sortData = key => {
-    //     console.log("AT START OF SORT DATA")
-    //     const day = this.state[key]
-    //     console.log(day)
-    //     if(key === 'channels'){
-
-    //     } else {
-    //         day.forEach(programme => {
+    //     const data = this.state[key]
+    //     if ( key !== 'channels' ) {
+    //         // console.log(`DAY:${key}`, data)
+    //         data.forEach(programme => {
+    //             console.log('Prog', programme)
     //             if (this.state.channelProgrammes.hasOwnProperty(programme.channelID)) {
-    //                 const key = `channelProgrammes.${programme.channelID}`
+    //                 console.log("ehehehe")
     //                 const programmes = [...this.state.channelProgrammes.channelID]
     //                 programmes.push(programme)
-    //                 this.setState({ [key]: programmes }, () => {
-    //                     console.log("HERE!!!", this.state.channelProgrammes)
+    //                 this.setState({ channelProgrammes: {
+    //                     ...this.state.channelProgrammes,
+    //                     [programme.channelID]: programmes
+    //                 }}, () => {
+    //                     console.log("HERE!!!")
     //                 })
     //             } else {
-    //                 const key = `channelProgrammes.${programme.channelID}`
-    //                 const starterArray = [...programme]
-    //                 this.setState({ [key]: starterArray })
+    //                 const starterArray = []
+    //                 starterArray.push(programme)
+    //                 console.log(programme.channelID, "day", key)
+    //                 console.log('ho!!!!!')
+    //                 this.setState({channelProgrammes: {test: starterArray}})
+    //                 // this.setState({ channelProgrammes: {
+    //                 //     [programme.channelID]: starterArray
+    //                 // }})
     //             }
     //         })
-    //     }
-
-    // }
-
-    // sortData = () => {
-    //     console.log("AT START OF SORT DATA")
-    //     const days = [this.state["1"], this.state["2"], this.state["3"], this.state["4"], this.state["5"], this.state["6"]]
-    //     console.log(days)
-    //     days.forEach(day => {
-    //         console.log("DAY", day)
-    //         day.forEach(programme => {
-    //             if (this.state.channelProgrammes.hasOwnProperty(programme.channelID)) {
-    //                 const key = `channelProgrammes.${programme.channelID}`
-    //                 const programmes = [...this.state.channelProgrammes.channelID]
-    //                 programmes.push(programme)
-    //                 this.setState({ [key]: programmes }, () => {
-    //                     console.log("HERE!!!", this.state.channelProgrammes)
-    //                 })
-    //             } else {
-    //                 const key = `channelProgrammes.${programme.channelID}`
-    //                 const starterArray = [...programme]
-    //                 this.setState({ [key]: starterArray })
-    //             }
-    //         })
-    //     })
+    //     } 
     // }
 
     render() {
@@ -81,7 +114,7 @@ class TvGuide extends Component {
             <div>
                 <TimeNav />
                 {
-                    loadedData === 7 ? <ChannelRowsContainer channels={channels} /> : console.log('hi')
+                    loadedData === 7 ? <ChannelRowsContainer channels={channels} /> : console.log('loading...')
                 }
                
             </div>
